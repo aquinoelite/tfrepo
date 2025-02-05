@@ -1,7 +1,5 @@
-resource "aws_security_group" "this" {
-  vpc_id      = aws_vpc.main.id
-  name        = "noel-sec-grp"
-  description = "noel sec grp"
+resource "aws_security_group" "noel" {
+  vpc_id = aws_vpc.noel.id
 
   ingress {
     from_port   = 22
@@ -20,11 +18,11 @@ resource "aws_security_group" "this" {
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"
+    protocol    = "-1" #allow all
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name = "noel sec grp"
+    Name = "noel"
   }
 }
