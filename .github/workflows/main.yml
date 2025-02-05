@@ -1,43 +1,52 @@
-name: Terraform AWS
+name:  Terraform AWS
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
-
-  build:
+  terraform:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout Repository
+    - name: checkout code
       uses: actions/checkout@v3
 
-    - name: Install and Configure AWS
+    - name: install and config aws
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-        aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+        aws-region: us-east-1
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
+    - name: setup terraform
+      uses: hashicorp/setup-terraform@v3
       with:
-        terraform-version: 2.0.1
+        terraform_version: "1.9.8"
 
-    - name: Initialize Terraform
-      run: terraform init
+    - name: run terraform init
+      run: |
+        terraform init
 
-    - name: Validate Config
-      run: terraform validate
+    - name: run terraform validate
+      run: |
+        terraform validate
 
-    - name: Initialize TF Plan
-      run: terraform plan
+    - name: run terraform apply
+      run: |
+        terraform apply -auto-approve
+      
 
-    - name: Apply TF Plan
-      run: terraform apply -auto-approve
+
+  
+      
+
+      
+
+
+
+  
+
+
+    
+    
