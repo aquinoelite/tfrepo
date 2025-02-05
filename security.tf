@@ -1,5 +1,8 @@
-resource "aws_security_group" "tfsecuritygroup" {
-  vpc_id = aws_vpc.tfvpcnoel.id
+resource "aws_security_group" "this" {
+  vpc_id      = aws_vpc.main.id
+  name        = "noel-sec-grp"
+  description = "noel sec grp"
+
   ingress {
     from_port   = 22
     to_port     = 22
@@ -22,6 +25,6 @@ resource "aws_security_group" "tfsecuritygroup" {
   }
 
   tags = {
-    Name = "tfsecuritygroup"
+    Name = "noel sec grp"
   }
 }
